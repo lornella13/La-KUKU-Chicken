@@ -1,6 +1,6 @@
 // La Kuku Chicken — service worker
 // Bump CACHE_VERSION whenever you want to force clients to pick up new assets.
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const STATIC_CACHE = `lakuku-static-${CACHE_VERSION}`;
 const PAGES_CACHE = `lakuku-pages-${CACHE_VERSION}`;
 const FONT_CACHE = `lakuku-fonts-${CACHE_VERSION}`;
@@ -13,8 +13,15 @@ const PRECACHE_URLS = [
   '/',
   OFFLINE_URL,
   '/manifest.webmanifest',
+  // Every icon the install flow can request, so a reinstalled / updated app
+  // never shows the old drumstick badge from a stale cache.
   '/icons/icon-192.png',
   '/icons/icon-512.png',
+  '/icons/maskable-192.png',
+  '/icons/maskable-512.png',
+  '/icons/apple-touch-icon.png',
+  '/icons/favicon-16.png',
+  '/icons/favicon-32.png',
   '/images/brand/logo.png',
   '/images/brand/logo-mark.png',
 ];

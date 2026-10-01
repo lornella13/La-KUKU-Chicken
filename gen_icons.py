@@ -1,71 +1,88 @@
-from PIL import Image, ImageDraw
-import math
+"""
+Build the PWA / install icons from the real La Kuku brand logo.
 
-INK = (26, 20, 16, 255)
-RED = (176, 35, 26, 255)
-GOLD = (240, 180, 41, 255)
-CREAM = (246, 238, 221, 255)
+The app icon used to be a generated drumstick badge on a navy background, which
+is why installing the site put a blue tile on the home screen. The installed app
+now shows the same La Kuku logo the website uses.
 
-def rotate_pt(px, py, cx, cy, deg):
-    a = math.radians(deg)
-    dx, dy = px - cx, py - cy
-    rx = dx*math.cos(a) - dy*math.sin(a)
-    ry = dx*math.sin(a) + dy*math.cos(a)
-    return (cx+rx, cy+ry)
+Icon flavours, matching what browsers ask for:
+  * "any"       - square, logo on a full-bleed brand background
+  * "maskable"  - Android crops these to a circle/squircle, so the logo is kept
+                  well inside the safe zone and the background is full-bleed
+  * apple-touch - iOS home screen icon (iOS never honours transparency)
+  * favicon     - browser tab
 
-def drumstick(img, cx, cy, s, color, angle=-35):
-    # Build the drumstick upright (meat on top, bone/knob at bottom),
-    # then rotate the whole composite by `angle` degrees.
-    layer = Image.new("RGBA", img.size, (0,0,0,0))
-    d = ImageDraw.Draw(layer)
+Run from anywhere:  python3 gen_icons.py
+"""
 
-    meat_r = s*0.50
-    meat_cx, meat_cy = cx, cy - s*0.28
+import os
 
-    bone_top_w = s*0.30
-    bone_bottom_w = s*0.16
-    bone_top_y = meat_cy + meat_r*0.55
-    bone_bottom_y = cy + s*0.62
+from PIL import Image
 
-    # tapered bone as polygon (trapezoid)
-    d.polygon([
-        (cx - bone_top_w/2, bone_top_y),
-        (cx + bone_top_w/2, bone_top_y),
-        (cx + bone_bottom_w/2, bone_bottom_y),
-        (cx - bone_bottom_w/2, bone_bottom_y),
-    ], fill=color)
+ROOT = os.path.dirname(os.path.abspath(__file__))
+BRAND_LOGO = os.path.join(ROOT, 'public', 'images', 'brand', 'logo.png')
+ICON_DIR = os.path.join(ROOT, 'public', 'icons')
 
-    # meat lobe
-    d.ellipse([meat_cx-meat_r, meat_cy-meat_r, meat_cx+meat_r, meat_cy+meat_r], fill=color)
+# Matches --ink / theme_color / background_color in index.css + manifest, so the
+# installed app sits with the rest of the brand rather than fighting it.
+BRAND_BG = (26, 20, 16, 255)
 
-    # knob at bottom
-    knob_r = s*0.135
-    d.ellipse([cx-knob_r, bone_bottom_y-knob_r*0.6, cx+knob_r, bone_bottom_y+knob_r*1.4], fill=color)
 
-    layer = layer.rotate(angle, resample=Image.BICUBIC, center=(cx, cy))
-    img.alpha_composite(layer)
+def load_mark():
+    """The brand logo, cropped to its visible artwork so it centres properly."""
+    im = Image.open(BRAND_LOGO).convert('RGBA')
 
-def make_icon(size, path, maskable=False, bg=INK):
-    img = Image.new("RGBA", (size, size), (0,0,0,0))
-    d = ImageDraw.Draw(img)
-    d.rectangle([0,0,size,size], fill=bg)
+    # Crop away transparent padding using the alpha channel.
+    bbox = im.getbbox()
+    if bbox:
+        im = im.crop(bbox)
+    return im
 
-    cx, cy = size/2, size/2
-    circle_r = size * (0.40 if maskable else 0.42)
 
-    d.ellipse([cx-circle_r, cy-circle_r, cx+circle_r, cy+circle_r], fill=RED)
-    ring_w = max(2, int(size*0.02))
-    d.ellipse([cx-circle_r, cy-circle_r, cx+circle_r, cy+circle_r], outline=GOLD, width=ring_w)
+def make_icon(size, filename, mark_ratio):
+    """
+    Build one icon: full-bleed brand background with the centred logo.
 
-    drumstick(img, cx, cy + size*0.01, circle_r*0.98, CREAM, angle=-30)
+    `mark_ratio` is the logo width as a fraction of the icon. Smaller ratios
+    leave more margin, which maskable icons need because the platform crops.
+    """
+    mark = load_mark()
 
-    img.save(path, "PNG")
+    # Fit the logo inside a square, then scale to the requested share.
+    side = max(mark.size)
+    square = Image.new('RGBA', (side, side), (0, 0, 0, 0))
+    square.paste(mark, ((side - mark.width) // 2, (side - mark.height) // 2))
 
-make_icon(192, "/home/claude/lakuku-react/public/icons/icon-192.png", maskable=False)
-make_icon(512, "/home/claude/lakuku-react/public/icons/icon-512.png", maskable=False)
-make_icon(192, "/home/claude/lakuku-react/public/icons/maskable-192.png", maskable=True)
-make_icon(512, "/home/claude/lakuku-react/public/icons/maskable-512.png", maskable=True)
-make_icon(180, "/home/claude/lakuku-react/public/icons/apple-touch-icon.png", maskable=False)
-make_icon(32, "/home/claude/lakuku-react/public/icons/favicon-32.png", maskable=False)
-make_icon(16, "/home/claude/lakuku-react/public/icons/favicon-16.png", maskable=False)
-print("done")
+    target = max(1, round(size * mark_ratio))
+    square = square.resize((target, target), Image.LANCZOS)
+
+    canvas = Image.new('RGBA', (size, size), BRAND_BG)
+    canvas.alpha_composite(square, ((size - target) // 2, (size - target) // 2))
+
+    path = os.path.join(ICON_DIR, filename)
+    canvas.convert('RGB').save(path, 'PNG', optimize=True)
+    print(f'  {filename:<22} {size}x{size}  logo at {int(mark_ratio * 100)}%')
+
+
+def main():
+    os.makedirs(ICON_DIR, exist_ok=True)
+    if not os.path.exists(BRAND_LOGO):
+        raise SystemExit(f'brand logo not found: {BRAND_LOGO}')
+
+    print('building icons from', os.path.relpath(BRAND_LOGO, ROOT))
+    # "any" + apple + favicons: comfortable margin
+    make_icon(512, 'icon-512.png', 0.76)
+    make_icon(192, 'icon-192.png', 0.76)
+    make_icon(180, 'apple-touch-icon.png', 0.76)
+    # maskable: Android may crop to a circle covering ~80% of the canvas, so the
+    # logo stays inside the middle ~58% to survive the tightest masks.
+    make_icon(512, 'maskable-512.png', 0.58)
+    make_icon(192, 'maskable-192.png', 0.58)
+    # favicons: fill more of the small square, but leave a hairline of padding
+    make_icon(32, 'favicon-32.png', 0.82)
+    make_icon(16, 'favicon-16.png', 0.86)
+    print('done')
+
+
+if __name__ == '__main__':
+    main()
