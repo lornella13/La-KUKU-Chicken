@@ -1,3 +1,20 @@
 node_modules
 dist
 .DS_Store
+
+# Local environment / secrets — never commit these.
+.env
+.env.*
+!.env.example
+
+# Supabase CLI local state (contains cached keys / temp tokens).
+supabase/.temp
+supabase/.branches
+supabase/.env
+
+# Logs and editor noise
+*.log
+npm-debug.log*
+.vscode/
+.idea/
+__pycache__/

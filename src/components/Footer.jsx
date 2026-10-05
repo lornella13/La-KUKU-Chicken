@@ -25,7 +25,7 @@ export default function Footer() {
               Kampala. Dressed to order, priced by the kilo, ordered on WhatsApp.
             </p>
             <a href={generalOrderLink()} target="_blank" rel="noreferrer" className="btn">
-              Order on WhatsApp
+              Order now
             </a>
           </div>
 

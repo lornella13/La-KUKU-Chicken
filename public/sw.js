@@ -1,6 +1,6 @@
 // La Kuku Chicken — service worker
 // Bump CACHE_VERSION whenever you want to force clients to pick up new assets.
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const STATIC_CACHE = `lakuku-static-${CACHE_VERSION}`;
 const PAGES_CACHE = `lakuku-pages-${CACHE_VERSION}`;
 const FONT_CACHE = `lakuku-fonts-${CACHE_VERSION}`;
@@ -52,6 +52,17 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return;
 
   const url = new URL(request.url);
+
+  // The admin area is never served from, or written to, the cache.
+  //
+  // Two reasons: an admin page should reflect the network's answer rather than
+  // a stale cached shell, and nothing under /admin should end up persisted in
+  // Cache Storage on the device. (The shell HTML holds no secrets — Supabase
+  // keeps the session in localStorage — but excluding it keeps admin
+  // navigations strictly network-first.)
+  if (url.origin === self.location.origin && url.pathname.startsWith('/admin')) {
+    return;
+  }
 
   // Page navigations: network-first, fall back to cache, then to offline page.
   if (request.mode === 'navigate') {

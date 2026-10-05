@@ -72,23 +72,20 @@ export default function Locations() {
             </Row>
 
             <Row icon="clock" label="Opening hours">
-              <table className="hours-table">
-                <caption className="sr-only">Opening hours for {locationInfo.branchName}</caption>
-                <tbody>
-                  {locationInfo.hours.map((h) => (
-                    <tr key={h.days}>
-                      <th scope="row">{h.days}</th>
-                      <td>
-                        {isPlaceholder(h.time) ? (
-                          <span className="todo" title={h.time}>To be confirmed</span>
-                        ) : (
-                          h.time
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className="hours-list">
+                {locationInfo.hours.map((h) => (
+                  <div key={h.days} className="hours-row">
+                    <span className="day">{h.days}</span>
+                    <span className="time">
+                      {isPlaceholder(h.time) ? (
+                        <span className="todo" title={h.time}>To be confirmed</span>
+                      ) : (
+                        h.time
+                      )}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </Row>
 
             <Row icon="scooter" label="Delivery">
@@ -105,7 +102,7 @@ export default function Locations() {
                 Get directions
               </a>
               <a href={generalOrderLink()} target="_blank" rel="noreferrer" className="btn">
-                Order on WhatsApp
+                Order now
               </a>
             </div>
           </div>

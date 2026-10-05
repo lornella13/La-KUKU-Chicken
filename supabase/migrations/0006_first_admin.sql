@@ -1,0 +1,56 @@
+-- =============================================================================
+-- La Kuku Chicken — 0006: first administrator
+--
+-- Run this ONCE, by hand, in the Supabase SQL Editor, AFTER creating your
+-- admin user in Dashboard -> Authentication -> Users.
+--
+-- It contains no password. Supabase Auth stores and verifies credentials; this
+-- file only records that an already-authenticated user id holds a role.
+--
+-- HOW TO USE
+--   1. Dashboard -> Authentication -> Users -> "Add user" (or "Invite user").
+--      Set the email and a strong password. Do NOT enable "auto confirm" on a
+--      shared machine; confirming the email yourself is fine.
+--   2. Copy that user's User UID from the Users table.
+--   3. Replace the placeholder below and run this file.
+--
+-- To add a second administrator later, repeat with their UID. To add a
+-- day-to-day operator with limited rights, use 'manager' — the RLS policies
+-- already honour that role.
+-- =============================================================================
+
+-- Example — replace with your real UID:
+-- insert into public.admin_profiles (user_id, role)
+-- values ('00000000-0000-0000-0000-000000000000', 'admin')
+-- on conflict (user_id) do update set role = excluded.role;
+
+-- Safe, generic template. Fails loudly if the UID does not exist, because of
+-- the foreign key to auth.users.
+--
+--   insert into public.admin_profiles (user_id, role)
+--   values ('PASTE-YOUR-USER-UID-HERE', 'admin')
+--   on conflict (user_id) do update set role = excluded.role;
+
+-- ---------------------------------------------------------------------------
+-- Verify who currently has access.
+-- ---------------------------------------------------------------------------
+-- select user_id, role, created_at
+-- from public.admin_profiles
+-- order by created_at;
+
+-- ---------------------------------------------------------------------------
+-- Inspect recent activity.
+-- ---------------------------------------------------------------------------
+-- select created_at, actor_user_id, action, entity_type, entity_id, details
+-- from public.audit_logs
+-- order by created_at desc
+-- limit 50;
+
+-- ---------------------------------------------------------------------------
+-- Remove someone's access.
+--
+-- Deleting the profile row is enough: RLS helpers read this table, so with no
+-- row the user is no longer staff and every write is refused. The account can
+-- optionally be deleted from Dashboard -> Authentication -> Users as well.
+-- ---------------------------------------------------------------------------
+-- delete from public.admin_profiles where user_id = 'PASTE-USER-UID-HERE';

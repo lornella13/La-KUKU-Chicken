@@ -1,8 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { contactInfo, allProducts, generalOrderLink, locationInfo, waLink } from '../data/products.js'
+import { fetchProducts } from '../lib/productsRepo.js'
+import { uniqueProductNames } from '../lib/groupProducts.js'
 
 // Derived from the product list so it can never drift out of sync with it.
-const PRODUCT_OPTIONS = [...allProducts.map((p) => p.name), 'Other / Bulk order']
+// Starts from the static catalogue, then is replaced by live database names
+// once they load, so the dropdown is never empty while the page is starting up.
+const FALLBACK_OPTIONS = [...allProducts.map((p) => p.name), 'Other / Bulk order']
 
 const CONTACT_LINKS = [
   {
@@ -40,12 +44,34 @@ const CONTACT_LINKS = [
 ]
 
 export default function Contact() {
+  const [productOptions, setProductOptions] = useState(FALLBACK_OPTIONS)
   const [form, setForm] = useState({
     name: '',
     phone: '',
-    product: PRODUCT_OPTIONS[0],
+    product: FALLBACK_OPTIONS[0],
     message: '',
   })
+
+  // Live product names from the database, so the dropdown matches what the
+  // shop actually sells. Falls back to the static list on any problem.
+  useEffect(() => {
+    let cancelled = false
+
+    fetchProducts()
+      .then(({ rows }) => {
+        if (cancelled || rows.length === 0) return
+        const names = uniqueProductNames(rows)
+        if (names.length === 0) return
+        setProductOptions([...names, 'Other / Bulk order'])
+      })
+      .catch(() => {
+        /* keep the fallback list */
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -150,7 +176,7 @@ export default function Contact() {
             <div className="field">
               <label htmlFor="product">Product</label>
               <select id="product" name="product" value={form.product} onChange={handleChange}>
-                {PRODUCT_OPTIONS.map((opt) => (
+                {productOptions.map((opt) => (
                   <option key={opt} value={opt}>{opt}</option>
                 ))}
               </select>

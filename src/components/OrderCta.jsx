@@ -10,7 +10,7 @@ export default function OrderCta() {
         </div>
         <div className="order-cta-actions">
           <a href={generalOrderLink()} target="_blank" rel="noreferrer" className="btn btn-lg">
-            Order on WhatsApp
+            Order now
           </a>
           <a href="#products" className="btn ghost btn-lg">Browse products</a>
         </div>

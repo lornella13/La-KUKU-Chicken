@@ -1,34 +1,25 @@
-import Navbar from './components/Navbar.jsx'
-import Hero from './components/Hero.jsx'
-import Story from './components/Story.jsx'
-import WhyUs from './components/WhyUs.jsx'
-import Products from './components/Products.jsx'
-import Locations from './components/Locations.jsx'
-import Contact from './components/Contact.jsx'
-import OrderCta from './components/OrderCta.jsx'
-import Footer from './components/Footer.jsx'
-import WhatsAppFloat from './components/WhatsAppFloat.jsx'
-import InstallPrompt from './components/InstallPrompt.jsx'
-import OfflineBanner from './components/OfflineBanner.jsx'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import PublicSite from './components/PublicSite.jsx'
+import AdminRoutes from './admin/AdminRoutes.jsx'
 
+/**
+ * Application root.
+ *
+ * The public website is served at "/" exactly as before. The admin area lives
+ * under /admin and carries its own guard, styles and session handling. Nothing
+ * about the public page's markup or design changes because of the router.
+ *
+ * Unknown paths fall back to the public site rather than a dead end, so a stale
+ * bookmark or a mistyped URL still lands somewhere useful.
+ */
 export default function App() {
   return (
-    <>
-      <OfflineBanner />
-      <a className="skip-link" href="#top">Skip to content</a>
-      <Navbar />
-      <main id="top">
-        <Hero />
-        <Story />
-        <WhyUs />
-        <Products />
-        <Locations />
-        <Contact />
-        <OrderCta />
-      </main>
-      <Footer />
-      <WhatsAppFloat />
-      <InstallPrompt />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<PublicSite />} />
+        <Route path="/admin/*" element={<AdminRoutes />} />
+        <Route path="*" element={<PublicSite />} />
+      </Routes>
+    </BrowserRouter>
   )
 }

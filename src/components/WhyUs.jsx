@@ -11,7 +11,7 @@ const REASONS = [
   },
   {
     title: 'Convenience',
-    body: 'Order on WhatsApp in a few taps, pick up in Rubaga, and get a published price per kilo before you commit.',
+    body: 'Order now in a few taps, pick up in Rubaga, and get a published price per kilo before you commit.',
     icon: 'bolt',
   },
 ]

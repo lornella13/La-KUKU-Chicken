@@ -193,10 +193,15 @@ header.nav{
 .brand .mark{
   display:inline-flex; align-items:center; justify-content:center;
   flex-shrink:0;
+  width:64px; height:64px;
+  background:#fff;
+  border-radius:50%;
+  overflow:hidden;
+  box-shadow: 0 0 0 2px #f2b52a, 0 4px 12px rgba(0,0,0,.4);
 }
 .brand .mark img{
-  height:clamp(30px, 3.4vw, 38px);
-  width:auto;
+  width:100%; height:100%;
+  object-fit:cover;
   display:block;
 }
 .brand small{
@@ -294,8 +299,9 @@ nav.links a:not(.btn):hover::after{ width:100%; }
 @media (max-width: 560px){
   .brand{ font-size:17px; gap:9px; }
   .brand small{ display:none; }
-  /* Too tight to fit the row: ordering stays reachable via the drawer and
-     the floating WhatsApp button. */
+  /* Match the 44px burger height so the header stays at 69px and the drawer
+     inset below it remains correct. */
+  .brand .mark{ width:44px; height:44px; }
   .nav-cta > .btn{ display:none; }
 }
 
@@ -556,7 +562,10 @@ nav.links a:not(.btn):hover::after{ width:100%; }
 .cat-blurb{ font-size:14px; color:var(--text-faint); }
 
 .product-grid{
-  display:grid; grid-template-columns:repeat(4, 1fr); gap:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:20px;
+  justify-content:center;
 }
 .product-card{
   display:flex; flex-direction:column;
@@ -589,6 +598,58 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   object-fit:contain;
   object-position:center;
   display:block;
+}
+
+/* Promotion badge and sold-out tag sit over the image stage. Both reuse the
+   existing gold and brown palette so the card design is unchanged apart from
+   the new pricing state. */
+.product-card .p-promo-badge{
+  position:absolute;
+  top:12px; left:12px;
+  background:var(--gold);
+  color:var(--ink);
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px; font-weight:700; letter-spacing:.06em;
+  padding:5px 10px;
+  border-radius:99px;
+}
+.product-card .p-sold-out{
+  position:absolute;
+  top:12px; right:12px;
+  background:var(--ink);
+  color:#fff;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10.5px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:5px 10px;
+  border-radius:99px;
+}
+/* The stage needs a positioning context for those absolutely placed tags. */
+.product-card .p-img{ position:relative; }
+
+/* Original price during a promotion: struck through and visually secondary. */
+.product-card .p-price .amount.was{
+  font-size:17px;
+  color:var(--text-faint);
+  text-decoration:line-through;
+  text-decoration-thickness:1.5px;
+}
+/* A size that is sold out cannot be chosen as a purchase target. */
+.product-card .p-variant.is-out{
+  opacity:.45;
+  text-decoration:line-through;
+}
+.product-card.is-unavailable .p-img img{ opacity:.55; }
+
+/* Non-interactive stand-in for the order button on an unavailable product. */
+.wa-btn.is-disabled{
+  background:transparent;
+  color:var(--text-faint);
+  border-color:var(--line-strong);
+  cursor:not-allowed;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 /* Name / description / price block keeps the warm neutral tone, while the
@@ -644,13 +705,9 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   margin:0;
   font-size:14px; line-height:1.5;
   color:var(--text-muted);
-  flex:1;
-  /* Reserves three lines so every card is the same height, whichever
-     description wraps to two lines and whichever to three. */
-  min-height:63px;
 }
 /* price + action pinned to the bottom so every card lines up */
-.product-card .p-buy{ margin-top:14px; }
+.product-card .p-buy{ margin-top:auto; }
 .product-card .p-price{
   margin:0 0 12px;
   display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
@@ -672,16 +729,9 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   font-size:13px;
 }
 
-.products-note{
-  display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
-  margin-top:16px;
-}
-
-@media (max-width: 1080px){ .product-grid{ grid-template-columns:repeat(3, 1fr); } }
-@media (max-width: 860px){ .product-grid{ grid-template-columns:repeat(2, 1fr); } }
+@media (max-width: 860px){ .product-grid{ grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); } }
 @media (max-width: 420px){
   .product-grid{ grid-template-columns:1fr; }
-  .products-note .btn{ width:100%; }
 }
 
 /* ---------- LOCATIONS ---------- */
@@ -722,15 +772,26 @@ nav.links a:not(.btn):hover::after{ width:100%; }
 .loc-row p{ margin:0; color:rgba(246,238,221,.78); font-size:14.5px; }
 .loc-row .todo{ color:rgba(246,238,221,.6); border-color:rgba(246,238,221,.3); }
 
-.hours-table{ width:100%; border-collapse:collapse; font-size:14.5px; }
-.hours-table th{
-  text-align:left; font-weight:400;
-  color:rgba(246,238,221,.7);
+.hours-list{
+  display:flex;
+  flex-direction:column;
+}
+.hours-row{
+  display:flex;
+  gap:16px;
   padding:5px 0;
 }
-.hours-table td{ text-align:right; padding:5px 0; }
-.hours-table tr + tr th,
-.hours-table tr + tr td{ border-top:1px solid rgba(246,238,221,.14); }
+.hours-row .day{
+  min-width:110px;
+  font-weight:400;
+  color:rgba(246,238,221,.7);
+}
+.hours-row .time{
+  text-align:left;
+}
+.hours-row + .hours-row{
+  border-top:1px solid rgba(246,238,221,.14);
+}
 
 .loc-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:auto; padding-top:8px; }
 .loc-actions .btn.ghost{ color:var(--cream); border-color:rgba(246,238,221,.35); }
@@ -875,10 +936,15 @@ footer{
 .foot-brand .brand{ margin-bottom:18px; }
 .foot-brand .mark{
   display:block;
+  width:120px; height:120px;
+  background:#fff;
+  border-radius:50%;
+  overflow:hidden;
+  box-shadow: 0 0 0 2px #f2b52a, 0 4px 12px rgba(0,0,0,.4);
 }
 .foot-brand .mark img{
-  height:clamp(62px, 7vw, 88px);
-  width:auto;
+  width:100%; height:100%;
+  object-fit:cover;
   display:block;
 }
 .foot-blurb{

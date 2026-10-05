@@ -1,0 +1,53 @@
+/*
+ * Security headers — Netlify / Cloudflare Pages.
+ *
+ * Copied verbatim into dist/ at build time and applied to every response.
+ *
+ * These are set as real HTTP headers rather than <meta> tags on purpose:
+ *
+ *   - CSP and X-Frame-Options are IGNORED when delivered in a <meta> tag, so a
+ *     meta-based version would look configured while protecting nothing.
+ *   - A header-based CSP is not sent by the Vite dev server, so `npm run dev`
+ *     keeps working (HMR needs inline scripts and a websocket). Only the
+ *     production build is constrained. That is the intended trade-off.
+ *
+ * Verify after deploying:  curl -I https://your-site.example | grep -i content-security
+ */
+
+/*
+  Content-Security-Policy
+  -------------------
+  default-src 'self'            everything off by default
+  script-src  'self'            no inline scripts, no eval. The production
+                                bundle is pure external modules, so this works.
+  style-src   'self' 'unsafe-inline' https://fonts.googleapis.com
+                                'unsafe-inline' is here for style attributes
+                                and is a real (if small) weakening; style
+                                injection cannot execute script.
+  font-src    'self' https://fonts.gstatic.com
+  img-src     'self' data: https:   product images may be Supabase Storage
+                                (https) or site-relative paths
+  connect-src 'self' https://*.supabase.co wss://*.supabase.co
+                                Supabase REST + realtime. The publishable key
+                                is public by design; RLS is the real gate.
+  frame-src   https://www.openstreetmap.org
+                                the Locations map embed
+  object-src  'none'            no <object>/<embed>, blocks plugin vectors
+  base-uri    'self'            blocks <base> tag hijacking
+  form-action 'self'            blocks form posts to attacker pages
+  frame-ancestors 'none'        clickjacking protection. MUST be a header;
+                                it is ignored in a <meta> tag.
+  upgrade-insecure-requests   force https for any http sub-resource
+*/
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+*/
+
+# Admin routes are never cached by any intermediary.
+/admin/*
+  Cache-Control: no-store, no-cache, must-revalidate, private
+  X-Robots-Tag: noindex, nofollow

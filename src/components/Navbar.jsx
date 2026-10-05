@@ -36,14 +36,14 @@ export default function Navbar() {
             rel="noreferrer"
             onClick={closeMenu}
           >
-            Order on WhatsApp
+            Order now
           </a>
         </nav>
 
         <div className="nav-cta">
           <a href="#contact" className="btn ghost" onClick={closeMenu}>Contact</a>
           <a href={generalOrderLink()} target="_blank" rel="noreferrer" className="btn">
-            Order on WhatsApp
+            Order now
           </a>
           <button
             className={`burger ${open ? 'is-open' : ''}`}

@@ -1,6 +1,11 @@
-import { heroImage, generalOrderLink } from '../data/products.js'
+import { heroImage, generalOrderLink, chickenProducts, formatPrice } from '../data/products.js'
 
 const BADGES = ['Fresh & frozen, not fried', '100% halal', 'Premium quality always']
+
+// Prices shown on the hero price tags are derived from the same catalogue the
+// rest of the site uses, so they cannot drift when a price changes.
+const wholeChicken = chickenProducts.find((p) => p.id === 'whole-chicken')
+const drumsticks = chickenProducts.find((p) => p.id === 'drumsticks')
 
 export default function Hero() {
   return (
@@ -22,7 +27,7 @@ export default function Hero() {
 
           <div className="hero-actions">
             <a href={generalOrderLink()} target="_blank" rel="noreferrer" className="btn btn-lg">
-              Order on WhatsApp
+              Order now
             </a>
             <a href="#products" className="btn ghost btn-lg">Explore Products</a>
           </div>
@@ -52,12 +57,12 @@ export default function Hero() {
 
           <div className="price-tag one">
             <div className="cut">Whole Chicken</div>
-            <div className="name">14,000/=</div>
+            <div className="name">{formatPrice(wholeChicken?.variants?.[0]?.price)}</div>
             <div className="unit">per kg · fresh, dressed</div>
           </div>
           <div className="price-tag two">
             <div className="cut">Drumsticks</div>
-            <div className="name">17,000/=</div>
+            <div className="name">{formatPrice(drumsticks?.variants?.[0]?.price)}</div>
             <div className="unit">per kg</div>
           </div>
         </div>

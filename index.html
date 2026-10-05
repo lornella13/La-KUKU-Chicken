@@ -6,6 +6,13 @@
     <title>La Kuku Chicken — Chicken Done Right</title>
     <meta name="description" content="La Kuku Chicken — fresh & frozen, 100% halal chicken and sausages in Rubaga, Kampala. Order on WhatsApp." />
 
+    <!-- Defence-in-depth headers that DO work in a <meta> tag.
+         The full CSP (including frame-ancestors) must be sent as a real HTTP
+         header — see public/_headers and vercel.json. It is deliberately not
+         placed here, because a <meta> CSP would break the Vite dev server. -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+
     <!-- PWA -->
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#1a1410" />

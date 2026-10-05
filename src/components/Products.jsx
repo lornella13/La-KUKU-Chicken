@@ -1,17 +1,53 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ProductCard from './ProductCard.jsx'
-import { productGroups, priceListLink } from '../data/products.js'
+import { productGroups as staticGroups } from '../data/products.js'
+import { fetchProducts } from '../lib/productsRepo.js'
+import { groupRowsIntoCards } from '../lib/groupProducts.js'
 
-const FILTERS = [
-  { id: 'all', label: 'Everything' },
-  ...productGroups.map((g) => ({ id: g.id, label: g.label })),
-]
-
+/**
+ * Public product section.
+ *
+ * Markup, class names and layout are unchanged. The only difference is the
+ * data source: rows now come from the database (falling back to the existing
+ * static catalogue if the database is unavailable), so an admin changing a
+ * price is reflected here without a code change or redeploy.
+ */
 export default function Products() {
   const [filter, setFilter] = useState('all')
+  const [groups, setGroups] = useState(staticGroups)
+  const [loading, setLoading] = useState(true)
 
-  const groups =
-    filter === 'all' ? productGroups : productGroups.filter((g) => g.id === filter)
+  useEffect(() => {
+    let cancelled = false
+
+    fetchProducts()
+      .then(({ rows }) => {
+        if (cancelled) return
+        // Only swap in database data if it actually has products; an empty or
+        // failed response must not blank out a working public page.
+        if (rows.length > 0) {
+          setGroups(groupRowsIntoCards(rows))
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const filters = useMemo(
+    () => [
+      { id: 'all', label: 'Everything' },
+      ...groups.map((g) => ({ id: g.id, label: g.label })),
+    ],
+    [groups],
+  )
+
+  const visible =
+    filter === 'all' ? groups : groups.filter((g) => g.id === filter)
 
   return (
     <section id="products" className="products">
@@ -28,7 +64,7 @@ export default function Products() {
         </div>
 
         <div className="filter-row" role="group" aria-label="Filter products by category">
-          {FILTERS.map((f) => (
+          {filters.map((f) => (
             <button
               key={f.id}
               type="button"
@@ -41,7 +77,7 @@ export default function Products() {
           ))}
         </div>
 
-        {groups.map((group) => (
+        {visible.map((group) => (
           <div key={group.id} className="product-group">
             <div className="cat-label">
               <h3 className="cat-name">{group.label}</h3>
@@ -54,13 +90,6 @@ export default function Products() {
             </div>
           </div>
         ))}
-
-        <div className="products-note">
-          <a href={priceListLink()} target="_blank" rel="noreferrer" className="btn">
-            Get the full price list on WhatsApp
-          </a>
-          <a href="#contact" className="btn ghost">Ask about bulk orders</a>
-        </div>
       </div>
     </section>
   )

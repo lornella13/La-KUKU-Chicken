@@ -22,7 +22,7 @@ export const chickenProducts = [
     name: 'Whole Chicken',
     unit: 'per kg',
     category: 'chicken',
-    variants: [{ label: 'per kg', price: 14000 }],
+    variants: [{ label: 'per kg', price: 15000 }],
     image: '/images/products/wholechicken.png',
     alt: 'Fresh whole dressed chicken',
     description: 'One whole bird, dressed and ready for the pot, grill or roaster.',
@@ -32,7 +32,7 @@ export const chickenProducts = [
     name: 'Mixed Portion',
     unit: 'per kg',
     category: 'chicken',
-    variants: [{ label: 'per kg', price: 14000 }],
+    variants: [{ label: 'per kg', price: 15000 }],
     image: '/images/products/mixed.png',
     alt: 'Fresh mixed chicken portion',
     description: 'A mixed pack of cuts when you want variety in one purchase.',
@@ -42,8 +42,8 @@ export const chickenProducts = [
     name: 'Whole Leg',
     unit: 'per kg',
     category: 'chicken',
-    variants: [{ label: 'per kg', price: 16000 }],
-    image: '/images/products/thighs.png',
+    variants: [{ label: 'per kg', price: 17000 }],
+    image: '/images/products/leg.png',
     alt: 'Fresh whole chicken leg',
     description: 'Thigh and drumstick kept together, the classic fry or roast portion.',
   },
@@ -52,7 +52,7 @@ export const chickenProducts = [
     name: 'Drumsticks',
     unit: 'per kg',
     category: 'chicken',
-    variants: [{ label: 'per kg', price: 17000 }],
+    variants: [{ label: 'per kg', price: 18000 }],
     image: '/images/products/drumsticks.png',
     alt: 'Fresh chicken drumsticks',
     description: 'A firm, meaty drumstick that stays juicy through long cooking.',
@@ -62,7 +62,7 @@ export const chickenProducts = [
     name: 'Wings',
     unit: 'per kg',
     category: 'chicken',
-    variants: [{ label: 'per kg', price: 16000 }],
+    variants: [{ label: 'per kg', price: 17000 }],
     image: '/images/products/wings.png',
     alt: 'Fresh chicken wings',
     description: 'Wings with the skin on, portioned for frying, grilling or stewing.',
@@ -72,7 +72,7 @@ export const chickenProducts = [
     name: 'Thighs',
     unit: 'per kg',
     category: 'chicken',
-    variants: [{ label: 'per kg', price: 15000 }],
+    variants: [{ label: 'per kg', price: 16000 }],
     image: '/images/products/thighs.png',
     alt: 'Fresh chicken thighs',
     description: 'Bone-in thighs, forgiving to cook and hard to dry out.',
@@ -92,7 +92,7 @@ export const chickenProducts = [
     name: 'Gizzards',
     unit: 'per kg',
     category: 'chicken',
-    variants: [{ label: 'per kg', price: 16000 }],
+    variants: [{ label: 'per kg', price: 18000 }],
     image: '/images/products/gizzards.png',
     alt: 'Fresh chicken gizzards',
     description: 'A traditional offal, sold for stews, sauces and slow cooking.',
@@ -102,7 +102,7 @@ export const chickenProducts = [
     name: 'Liver',
     unit: 'per kg',
     category: 'chicken',
-    variants: [{ label: 'per kg', price: 8000 }],
+    variants: [{ label: 'per kg', price: 10000 }],
     image: '/images/products/liver.png',
     alt: 'Fresh chicken liver',
     description: 'Fresh liver for sautéing, stews and traditional dishes.',
@@ -112,7 +112,7 @@ export const chickenProducts = [
     name: 'Necks',
     unit: 'per kg',
     category: 'chicken',
-    variants: [{ label: 'per kg', price: 8000 }],
+    variants: [{ label: 'per kg', price: 9000 }],
     image: '/images/products/neck.png',
     alt: 'Fresh chicken necks',
     description: 'Necks with plenty of connective tissue for rich stocks.',
@@ -122,7 +122,7 @@ export const chickenProducts = [
     name: 'Backs',
     unit: 'per kg',
     category: 'chicken',
-    variants: [{ label: 'per kg', price: 8000 }],
+    variants: [{ label: 'per kg', price: 9000 }],
     image: '/images/products/back.png',
     alt: 'Fresh chicken backs',
     description: 'Backs for stock, broth and slow-simmered sauces.',
@@ -131,53 +131,57 @@ export const chickenProducts = [
 
 export const sausageProducts = [
   {
-    id: 'hungarian-choma-beef',
-    name: 'Hungarian Choma Beef Sausage',
-    unit: 'per pack',
-    category: 'sausages',
-    variants: [
-      { label: '500g', price: 12000 },
-      { label: '1kg', price: 21000 },
-    ],
-    image: '/images/products/hungarian beef saosage.png',
-    alt: 'Hungarian Choma beef sausage',
-    description: 'Beef sausage in Choma style, packed fresh. Choose a 500 g pack when you need less, or the full 1 kg tray for the family.',
-  },
-  {
     id: 'smoked-chicken-sausage',
     name: 'Smoked Chicken Sausage',
     unit: 'per pack',
     category: 'sausages',
-    variants: [
-      { label: '500g', price: 10000 },
-      { label: '1kg', price: 17000 },
-    ],
+    variants: [{ label: 'per pack', price: 18000 }],
     image: '/images/products/smokedchicken.png',
-    alt: 'Smoked chicken sausage',
-    description: 'Smoked chicken sausage, packed fresh. Choose a 500 g pack when you need less, or the full 1 kg tray for the family.',
+    alt: 'Fully cooked smoked chicken sausage',
+    description: 'Fully cooked smoked chicken sausage, ready to eat.',
   },
   {
-    id: 'nyama-nyama-beef',
-    name: 'Nyama Nyama Beef Sausage',
+    id: 'chicken-sausage',
+    name: 'Chicken Sausage',
     unit: 'per pack',
     category: 'sausages',
-    variants: [{ label: '1kg', price: 14000 }],
-    image: '/images/products/nyamanyama.png',
-    alt: 'Nyama Nyama beef sausage',
-    description: 'Nyama Nyama beef sausage, 1 kg pack.',
+    variants: [{ label: 'per pack', price: 15000 }],
+    image: '/images/products/chicken-sausage.png',
+    alt: 'Half cooked chicken sausage',
+    description: 'Half cooked chicken sausage, finish on the grill or in the pan.',
   },
   {
-    id: 'royal-butchery-beef',
-    name: 'Royal Butchery Beef Sausage',
+    id: 'hungarian-sausage',
+    name: 'Hungarian Sausage',
+    unit: 'per pack',
+    category: 'sausages',
+    variants: [{ label: 'per pack', price: 22000 }],
+    image: '/images/products/hungarian beef saosage.png',
+    alt: 'Fully cooked Hungarian style sausage',
+    description: 'Fully cooked Hungarian style sausage.',
+  },
+  {
+    id: 'beef-sausage',
+    name: 'Beef Sausage',
     unit: 'per pack',
     category: 'sausages',
     variants: [
-      { label: '500g', price: 5000 },
-      { label: '1kg', price: 9000 },
+      { label: 'Half cooked', price: 14000 },
+      { label: 'Raw', price: 9000 },
     ],
     image: '/images/products/royalbutchery.png',
-    alt: 'Royal Butchery beef sausage',
-    description: 'Royal Butchery beef sausage. Choose a 500 g pack when you need less, or the full 1 kg tray for the family.',
+    alt: 'Beef sausage',
+    description: 'Beef sausage, available half cooked or raw.',
+  },
+  {
+    id: 'minced-meat',
+    name: 'Minced Meat',
+    unit: 'per kg',
+    category: 'sausages',
+    variants: [{ label: 'per kg', price: 22000 }],
+    image: '/images/products/minced-meat.png',
+    alt: 'Fresh minced meat',
+    description: 'Fresh minced meat, sold by the kilogram.',
   },
 ]
 
@@ -253,7 +257,7 @@ export const contactInfo = {
   whatsappDisplay: `+${UGANDA_COUNTRY_CODE} ${groupedNumber}`,
   phone: `+${WHATSAPP_NUMBER}`,
   phoneDisplay: `+${UGANDA_COUNTRY_CODE} ${groupedNumber}`,
-  email: 'orders@lakukuchicken.com',
+  email: 'ssuubichristian@gmail.com',
 }
 
 export const locationInfo = {
@@ -311,7 +315,9 @@ export function waLink(message) {
 
 /** Formats a variant price the way it is shown on the card: 21000 -> "21,000/=". */
 export function formatPrice(value) {
-  return `${value.toLocaleString('en-US')}/=`
+  const n = Math.round(Number(value))
+  if (!Number.isFinite(n)) return '—'
+  return `${n.toLocaleString('en-US')}/=`
 }
 
 /** Pre-filled order enquiry for a product at one specific size. */
@@ -319,9 +325,19 @@ export function productOrderLink(product, variant) {
   // Size only appears in the message when it is a real choice, so the
   // single-size cuts read as a plain product name.
   const size = product.variants.length > 1 ? ` (${variant.label})` : ''
+
+  // The message quotes the price the customer was actually shown, so a
+  // promotion cannot produce a mismatch between the card and the order.
+  // When a promotion is live the original price is included for the shop's
+  // records, and the message is percent-encoded by whatsappLink.
   const price = formatPrice(variant.price)
+  const promo =
+    variant.isPromoted && variant.listPrice > variant.price
+      ? ` [${variant.promotionLabel} from ${formatPrice(variant.listPrice)}]`
+      : ''
+
   return whatsappLink(
-    `Hello La Kuku, I would like to order ${product.name}${size} - ${price}. Please share availability and ordering details.`,
+    `Hello La Kuku, I would like to order ${product.name}${size}${promo} - ${price}. Please share availability and ordering details.`,
   )
 }
 

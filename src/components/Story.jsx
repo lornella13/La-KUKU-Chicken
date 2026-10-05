@@ -42,7 +42,7 @@ export default function Story() {
             <div className="story-actions">
               <a href="#products" className="btn">See the price list</a>
               <a href={generalOrderLink()} target="_blank" rel="noreferrer" className="btn ghost">
-                Order on WhatsApp
+                Order now
               </a>
             </div>
           </div>
