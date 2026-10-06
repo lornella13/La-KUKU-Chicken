@@ -1,6 +1,6 @@
 import { heroImage, generalOrderLink, chickenProducts, formatPrice } from '../data/products.js'
 
-const BADGES = ['Fresh & frozen, not fried', '100% halal', 'Premium quality always']
+const BADGES = ['Fresh & frozen', '100% halal', 'Premium quality always']
 
 // Prices shown on the hero price tags are derived from the same catalogue the
 // rest of the site uses, so they cannot drift when a price changes.

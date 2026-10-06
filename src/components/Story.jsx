@@ -3,8 +3,8 @@ import { generalOrderLink } from '../data/products.js'
 const PILLARS = [
   {
     num: '01',
-    title: 'Fresh, not fried',
-    body: 'We supply fresh and frozen chicken, dressed to order, never pre-fried. You buy raw cuts ready for your own kitchen.',
+    title: 'Fresh and frozen',
+    body: 'We supply fresh and frozen chicken, dressed to order. You buy raw cuts ready for your own kitchen.',
   },
   {
     num: '02',

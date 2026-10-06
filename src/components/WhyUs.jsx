@@ -6,7 +6,7 @@ const REASONS = [
   },
   {
     title: 'Freshness',
-    body: 'Fresh and frozen stock, not fried. Dressed to order so you receive raw chicken ready for your own cooking.',
+    body: 'Fresh and frozen stock. Dressed to order so you receive raw chicken ready for your own cooking.',
     icon: 'leaf',
   },
   {
