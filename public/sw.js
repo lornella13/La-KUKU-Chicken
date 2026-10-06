@@ -1,6 +1,6 @@
 // La Kuku Chicken — service worker
 // Bump CACHE_VERSION whenever you want to force clients to pick up new assets.
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 const STATIC_CACHE = `lakuku-static-${CACHE_VERSION}`;
 const PAGES_CACHE = `lakuku-pages-${CACHE_VERSION}`;
 const FONT_CACHE = `lakuku-fonts-${CACHE_VERSION}`;
