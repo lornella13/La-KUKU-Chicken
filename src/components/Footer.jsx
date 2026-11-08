@@ -1,4 +1,5 @@
-import { contactInfo, locationInfo, generalOrderLink } from '../data/products.js'
+import { contactInfo, generalOrderLink } from '../data/products.js'
+import { useMapCenter } from '../lib/mapCenter.js'
 
 const NAV_ITEMS = [
   { href: '#story', label: 'Our Story' },
@@ -9,6 +10,8 @@ const NAV_ITEMS = [
 
 export default function Footer() {
   const year = new Date().getFullYear()
+  const { center, snippet } = useMapCenter()
+  const [lat, lng] = center || [0.3023023, 32.5488439]
 
   return (
     <footer>
@@ -47,10 +50,9 @@ export default function Footer() {
 
           <div className="foot-col">
             <h2 className="foot-title">Find us</h2>
-            <p>{locationInfo.branchName}</p>
-            <p className="foot-addr">{locationInfo.address}</p>
+            <p className="foot-addr">{snippet}</p>
             <a
-              href={locationInfo.directionsUrl}
+              href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}
               target="_blank"
               rel="noreferrer"
             >

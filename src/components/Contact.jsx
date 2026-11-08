@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
-import { contactInfo, allProducts, generalOrderLink, locationInfo, waLink } from '../data/products.js'
+import { contactInfo, allProducts, generalOrderLink, waLink } from '../data/products.js'
 import { fetchProducts } from '../lib/productsRepo.js'
 import { uniqueProductNames } from '../lib/groupProducts.js'
+import { useMapCenter } from '../lib/mapCenter.js'
 
-// Derived from the product list so it can never drift out of sync with it.
-// Starts from the static catalogue, then is replaced by live database names
-// once they load, so the dropdown is never empty while the page is starting up.
 const FALLBACK_OPTIONS = [...allProducts.map((p) => p.name), 'Other / Bulk order']
 
 const CONTACT_LINKS = [
@@ -51,9 +49,9 @@ export default function Contact() {
     product: FALLBACK_OPTIONS[0],
     message: '',
   })
+  const { center, title, snippet } = useMapCenter()
+  const [lat, lng] = center || [0.3023023, 32.5488439]
 
-  // Live product names from the database, so the dropdown matches what the
-  // shop actually sells. Falls back to the static list on any problem.
   useEffect(() => {
     let cancelled = false
 
@@ -65,7 +63,7 @@ export default function Contact() {
         setProductOptions([...names, 'Other / Bulk order'])
       })
       .catch(() => {
-        /* keep the fallback list */
+        
       })
 
     return () => {
@@ -131,8 +129,8 @@ export default function Contact() {
               </span>
               <div>
                 <div className="label">Visit</div>
-                <div className="value">{locationInfo.branchName}</div>
-                <div className="hint">{locationInfo.address}</div>
+                <div className="value">{title}</div>
+                <div className="hint">{snippet}</div>
               </div>
             </div>
           </div>

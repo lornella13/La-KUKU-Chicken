@@ -199,7 +199,7 @@ export const heroImage = {
   alt: 'Fresh whole dressed chicken, ready for the kitchen',
 }
 
-export const WHATSAPP_NUMBER = '256761023983'
+export const WHATSAPP_NUMBER = '256705629568'
 
 const UGANDA_COUNTRY_CODE = '256'
 const UGANDA_DIGIT_COUNT = 12
@@ -236,7 +236,7 @@ export const contactInfo = {
 
 export const locationInfo = {
   branchName: 'Rubaga Branch',
-  address: 'Mugwanya Road, next to Lubiri SS, Rubaga, Kampala, Uganda',
+  address: 'Mugwanya Road, Rubaga, Kampala, Uganda',
   hours: [
     { days: 'Mon – Sat', time: '7:00 – 20:00' },
     { days: 'Sunday', time: '8:00 – 18:00' },
@@ -244,12 +244,12 @@ export const locationInfo = {
   delivery: '24/7',
 
   mapEmbedUrl:
-    'https://www.openstreetmap.org/export/embed.html?bbox=32.5434%2C0.3005%2C32.5564%2C0.3096' +
+    'https://www.openstreetmap.org/export/embed.html?bbox=32.54689%2C0.30253%2C32.55289%2C0.30753' +
     '&layer=mapnik&marker=0.30503%2C32.54989',
 
   directionsUrl:
     'https://www.google.com/maps/search/?api=1&query=' +
-    encodeURIComponent('Lubiri SS, Mugwanya Road, Rubaga, Kampala, Uganda'),
+    encodeURIComponent('Mugwanya Road, Rubaga, Kampala, Uganda'),
 }
 
 export function isPlaceholder(value) {
