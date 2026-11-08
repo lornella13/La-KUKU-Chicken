@@ -1,5 +1,5 @@
 import { supabase, isBackendAvailable } from './supabase.js'
-import { chickenProducts, sausageProducts } from '../data/products.js'
+import { chickenProducts, sausagesProducts } from '../data/products.js'
 import { effectivePrice, isPromotionLive, promotionLabel } from './pricing.js'
 
 let warnedAboutFallback = false
@@ -18,7 +18,7 @@ function staticRows() {
 
   let productPosition = 0
 
-  for (const p of [...chickenProducts, ...sausageProducts]) {
+  for (const p of [...chickenProducts, ...sausagesProducts]) {
 
     const sizeOptions = p.sizes ?? p.variants ?? []
     if (sizeOptions.length === 0) {

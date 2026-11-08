@@ -121,40 +121,40 @@ export const chickenProducts = [
   },
 ]
 
-export const sausageProducts = [
+export const sausagesProducts = [
   {
-    id: 'smoked-chicken-sausage',
-    name: 'Smoked Chicken Sausage',
+    id: 'smoked-chicken-sausages',
+    name: 'Smoked Chicken Sausages',
     unit: 'per pack',
     category: 'sausages',
     variants: [{ label: 'per pack', price: 18000 }],
     image: '/images/products/smokedchicken.png',
-    alt: 'Fully cooked smoked chicken sausage',
-    description: 'Fully cooked smoked chicken sausage, ready to eat.',
+    alt: 'Fully cooked smoked chicken sausages',
+    description: 'Fully cooked smoked chicken sausages, ready to eat.',
   },
   {
-    id: 'chicken-sausage',
-    name: 'Chicken Sausage',
+    id: 'chicken-sausages',
+    name: 'Chicken Sausages',
     unit: 'per pack',
     category: 'sausages',
     variants: [{ label: 'per pack', price: 15000 }],
-    image: '/images/products/chicken-sausage.png',
-    alt: 'Half cooked chicken sausage',
-    description: 'Half cooked chicken sausage, finish on the grill or in the pan.',
+    image: '/images/products/smokedchicken.png',
+    alt: 'Half cooked chicken sausages',
+    description: 'Half cooked chicken sausages, finish on the grill or in the pan.',
   },
   {
-    id: 'hungarian-sausage',
-    name: 'Hungarian Sausage',
+    id: 'hungarian-sausages',
+    name: 'Hungarian beef sausages',
     unit: 'per pack',
     category: 'sausages',
     variants: [{ label: 'per pack', price: 22000 }],
     image: '/images/products/hungarian beef saosage.png',
-    alt: 'Fully cooked Hungarian style sausage',
-    description: 'Fully cooked Hungarian style sausage.',
+    alt: 'Fully cooked Hungarian style sausages',
+    description: 'Fully cooked Hungarian style sausages.',
   },
   {
-    id: 'beef-sausage',
-    name: 'Beef Sausage',
+    id: 'beef-sausages',
+    name: 'Beef Sausages',
     unit: 'per pack',
     category: 'sausages',
     variants: [
@@ -162,15 +162,15 @@ export const sausageProducts = [
       { label: 'Raw', price: 9000 },
     ],
     image: '/images/products/royalbutchery.png',
-    alt: 'Beef sausage',
-    description: 'Beef sausage, available half cooked or raw.',
+    alt: 'Beef sausages',
+    description: 'Beef sausages, available half cooked or raw.',
   },
   {
     id: 'minced-meat',
     name: 'Minced Meat',
     unit: 'per kg',
     category: 'sausages',
-    variants: [{ label: 'per kg', price: 22000 }],
+    variants: [{ label: 'per kg', price: 24000 }],
     image: '/images/products/minced-meat.png',
     alt: 'Fresh minced meat',
     description: 'Fresh minced meat, sold by the kilogram.',
@@ -187,12 +187,12 @@ export const productGroups = [
   {
     id: 'sausages',
     label: 'Sausages',
-    blurb: 'Beef and smoked chicken sausage, sold per pack.',
-    items: sausageProducts,
+    blurb: 'Beef and smoked chicken sausages, sold per pack.',
+    items: sausagesProducts,
   },
 ]
 
-export const allProducts = [...chickenProducts, ...sausageProducts]
+export const allProducts = [...chickenProducts, ...sausagesProducts]
 
 export const heroImage = {
   src: '/images/hero/whole-chicken.webp',

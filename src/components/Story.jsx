@@ -28,7 +28,7 @@ export default function Story() {
             <h2>Chicken done right means never taking shortcuts.</h2>
 
             <p>
-              La Kuku Chicken is a Rubaga-based chicken and sausage supplier
+              La Kuku Chicken is a Rubaga-based chicken and sausages supplier
               serving Kampala. We sell raw chicken the way it should be sold:
               fresh or frozen, dressed to order, halal, and weighed out in front
               of you at a published price.

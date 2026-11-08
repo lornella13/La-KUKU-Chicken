@@ -1,7 +1,7 @@
 const REASONS = [
   {
     title: 'Quality',
-    body: 'Premium quality always. The same standard across every cut, from a single breast fillet to a full sausage pack.',
+    body: 'Premium quality always. The same standard across every cut, from a single breast fillet to a full sausages pack.',
     icon: 'shield',
   },
   {
