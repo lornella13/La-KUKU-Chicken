@@ -151,7 +151,7 @@ header.nav{
   display:flex; align-items:center; justify-content:space-between;
   gap:20px;
   padding:12px 24px;
-  max-width:var(--maxw); margin:0 auto;
+  width:100%;
 }
 .brand{
   display:flex; align-items:center; gap:12px;
@@ -162,6 +162,7 @@ header.nav{
   text-transform:uppercase;
   color:var(--cream);
   flex-shrink:0;
+  padding-left:20px;
 }
 
 .brand .mark{
