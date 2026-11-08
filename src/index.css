@@ -1,9 +1,4 @@
-/* ==========================================================================
-   La Kuku Chicken
-   Palette: brown + gold stay as the brand core (navbar, footer, headings),
-   cream and white carry the page body so fresh chicken reads clean rather
-   than heavy. Red is a supporting accent only.
-   ========================================================================== */
+
 
 :root{
   --ink:#1a1410;
@@ -15,25 +10,15 @@
   --cream:#f6eedd;
   --green:#3c6e47;
 
-  /* surfaces */
+  
   --page:#fbf7ef;
   --surface:#ffffff;
   --surface-alt:#f4ecdd;
 
-  /* Product image stage -- white, so the whole card reads as one white surface.
-
-   Holds the ORIGINAL photograph, uncropped and undistorted. `contain` plus
-   centring means the complete product is always visible no matter what shape
-   the source photo is -- these range from 234x132 to 1200x1500.
-
-   The photos have their own light studio backgrounds. Left intact on purpose:
-   the alternative was a background-removal cutout, which was damaging the
-   product edges (large areas of the chicken were being removed along with the
-   backdrop). Product integrity wins over a flat backdrop, and since those
-   backdrops are white/light they blend into this white stage cleanly. */
+  
   --product-stage:#ffffff;
 
-  /* text */
+  
   --text:#2a221b;
   --text-muted:#6b5f52;
   --text-faint:#726758;
@@ -52,8 +37,7 @@
 *{ box-sizing:border-box; }
 html{
   scroll-behavior:smooth;
-  /* `clip` (not `hidden`) stops the off-canvas drawer widening the document
-     without creating a scroll container, which would break the sticky nav. */
+  
   overflow-x:clip;
 }
 body{
@@ -81,8 +65,6 @@ img{ max-width:100%; display:block; }
 .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
 section{ padding:88px 0; }
 
-/* ---------- ACCESSIBILITY HELPERS ---------- */
-
 .sr-only{
   position:absolute; width:1px; height:1px;
   padding:0; margin:-1px; overflow:hidden;
@@ -97,15 +79,12 @@ section{ padding:88px 0; }
 }
 .skip-link:focus{ top:0; }
 
-/* Visible focus everywhere, including for mouse users. */
 a:focus-visible, button:focus-visible, input:focus-visible,
 select:focus-visible, textarea:focus-visible, iframe:focus-visible{
   outline:3px solid var(--gold-deep);
   outline-offset:2px;
   border-radius:3px;
 }
-
-/* ---------- TYPOGRAPHY BLOCKS ---------- */
 
 .eyebrow{
   font-family:'JetBrains Mono', monospace;
@@ -133,8 +112,6 @@ select:focus-visible, textarea:focus-visible, iframe:focus-visible{
 
 .accent{ color:var(--red); }
 .strike{ color:var(--gold-deep); }
-
-/* ---------- BUTTONS ---------- */
 
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:8px;
@@ -164,8 +141,6 @@ select:focus-visible, textarea:focus-visible, iframe:focus-visible{
 }
 .btn-lg{ padding:16px 28px; font-size:15px; }
 
-/* ---------- NAVBAR ---------- */
-
 header.nav{
   position:sticky; top:0; z-index:100;
   background: rgba(26,20,16,.96);
@@ -188,8 +163,7 @@ header.nav{
   color:var(--cream);
   flex-shrink:0;
 }
-/* Sized by height with auto width, so the box adapts to whatever shape the
-   logo artwork actually is. No hard-coded aspect ratio to distort it. */
+
 .brand .mark{
   display:inline-flex; align-items:center; justify-content:center;
   flex-shrink:0;
@@ -252,26 +226,19 @@ nav.links a:not(.btn):hover::after{ width:100%; }
 .burger.is-open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
 
 @media (max-width: 980px){
-  /* The drawer below is position:fixed. An element with a backdrop-filter
-     becomes the containing block for its fixed-position descendants, which
-     would trap the drawer inside the header's 69px box so its dark panel
-     collapsed to a thin strip instead of covering the screen. The nav bar is
-     96% opaque anyway, so dropping the blur costs almost nothing visually. */
+  
   header.nav{ backdrop-filter:none; }
 
   .nav-row{ padding:12px 18px; }
 
-  /* Header height on mobile = 44px (min-height of the burger)
-                            + 12px+12px (.nav-row padding)
-                            + 1px  (border-bottom)
-                          = 69px. The drawer starts just below it. */
+  
   nav.links{
     position:fixed; inset:69px 0 0 0;
     background:var(--ink);
     flex-direction:column; align-items:flex-start; justify-content:flex-start;
     padding:28px 24px; gap:6px;
     transform:translateX(100%);
-    /* Hidden while closed so its links leave the tab order. */
+    
     visibility:hidden;
     pointer-events:none;
     transition:transform .25s ease, visibility 0s linear .25s;
@@ -299,13 +266,10 @@ nav.links a:not(.btn):hover::after{ width:100%; }
 @media (max-width: 560px){
   .brand{ font-size:17px; gap:9px; }
   .brand small{ display:none; }
-  /* Match the 44px burger height so the header stays at 69px and the drawer
-     inset below it remains correct. */
+  
   .brand .mark{ width:44px; height:44px; }
   .nav-cta > .btn{ display:none; }
 }
-
-/* ---------- HERO ---------- */
 
 .hero{
   position:relative;
@@ -349,7 +313,6 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   background:var(--green); flex-shrink:0;
 }
 
-/* signature: hanging price tags */
 .tag-stage{
   position:relative;
   display:flex; align-items:center; justify-content:center;
@@ -420,8 +383,6 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   .hero-actions .btn{ width:100%; }
 }
 
-/* ---------- STORY ---------- */
-
 .story{ background:var(--surface); }
 .story-intro{
   display:grid; grid-template-columns: 1.15fr .85fr;
@@ -490,8 +451,6 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   .story-grid{ grid-template-columns:1fr; }
 }
 
-/* ---------- WHY US ---------- */
-
 .why{ background:var(--surface-alt); border-block:1px solid var(--line); }
 .why-grid{
   list-style:none; margin:0; padding:0;
@@ -520,8 +479,6 @@ nav.links a:not(.btn):hover::after{ width:100%; }
 .why-card h3{ font-size:21px; }
 .why-card p{ color:var(--text-muted); margin:10px 0 0; font-size:15px; }
 @media (max-width: 980px){ .why-grid{ grid-template-columns:1fr; } }
-
-/* ---------- PRODUCTS ---------- */
 
 .products{ background:var(--page); }
 .filter-row{
@@ -572,9 +529,13 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   background: var(--surface);
   border:1px solid var(--line);
   border-radius:var(--radius);
-  overflow:hidden;
   box-shadow:var(--shadow-sm);
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  
+}
+.product-card.is-dropdown-open{
+  z-index:50;
+  position:relative;
 }
 .product-card:hover{
   transform:translateY(-4px);
@@ -582,9 +543,6 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   border-color: rgba(240,180,41,.65);
 }
 
-/* Consistent square stage, white to match the card. `contain` + centring +
-   padding guarantees the whole photograph is visible: nothing cropped,
-   stretched or squeezed. */
 .product-card .p-img{
   width:100%;
   aspect-ratio:1 / 1;
@@ -600,9 +558,6 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   display:block;
 }
 
-/* Promotion badge and sold-out tag sit over the image stage. Both reuse the
-   existing gold and brown palette so the card design is unchanged apart from
-   the new pricing state. */
 .product-card .p-promo-badge{
   position:absolute;
   top:12px; left:12px;
@@ -624,24 +579,22 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   padding:5px 10px;
   border-radius:99px;
 }
-/* The stage needs a positioning context for those absolutely placed tags. */
+
 .product-card .p-img{ position:relative; }
 
-/* Original price during a promotion: struck through and visually secondary. */
 .product-card .p-price .amount.was{
   font-size:17px;
   color:var(--text-faint);
   text-decoration:line-through;
   text-decoration-thickness:1.5px;
 }
-/* A size that is sold out cannot be chosen as a purchase target. */
+
 .product-card .p-variant.is-out{
   opacity:.45;
   text-decoration:line-through;
 }
 .product-card.is-unavailable .p-img img{ opacity:.55; }
 
-/* Non-interactive stand-in for the order button on an unavailable product. */
 .wa-btn.is-disabled{
   background:transparent;
   color:var(--text-faint);
@@ -652,11 +605,6 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   justify-content:center;
 }
 
-/* Name / description / price block keeps the warm neutral tone, while the
-   image area above it is white -- so the two halves stay visually distinct
-   without the card reading as one flat white slab. */
-/* Size selector. Rendered for every product so cards line up in the grid;
-   empty (but still reserving its height) when a product has one size. */
 .product-card .p-variants{
   min-height:34px;
   display:flex; flex-wrap:wrap; gap:8px;
@@ -675,7 +623,7 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   transition:background .15s ease, border-color .15s ease, color .15s ease;
 }
 .product-card .p-variant:hover{ border-color:var(--gold); color:var(--ink); }
-/* Active pill reuses the order button's gold so the two read as one action. */
+
 .product-card .p-variant.is-active{
   background:var(--gold);
   border-color:var(--gold);
@@ -684,6 +632,123 @@ nav.links a:not(.btn):hover::after{ width:100%; }
 .product-card .p-variant:focus-visible{
   outline:2px solid var(--gold-deep);
   outline-offset:2px;
+}
+
+.product-card .p-size-dropdown{
+  position:relative;
+  width:100%;
+}
+.product-card .p-size-btn{
+  width:100%;
+  min-height:44px;
+  padding:8px 14px;
+  border:1px solid var(--line-strong);
+  border-radius:var(--radius-tag);
+  background:var(--surface);
+  color:var(--ink);
+  font-size:16px;
+  font-family:inherit;
+  font-weight:500;
+  text-align:left;
+  cursor:pointer;
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.product-card .p-size-btn:focus-visible{
+  outline:2px solid var(--gold-deep);
+  outline-offset:2px;
+}
+.product-card .p-size-btn.is-open{
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
+  border-color:var(--gold-deep);
+}
+.product-card .p-size-btn-label{
+  flex:1;
+}
+.product-card .p-size-btn-price{
+  color:var(--gold-deep);
+  font-weight:700;
+  font-variant-numeric:tabular-nums;
+}
+.product-card .p-size-btn-chevron{
+  font-size:12px;
+  color:var(--text-faint);
+  margin-left:auto;
+}
+.product-card .p-size-list{
+  position:absolute;
+  left:0;
+  right:0;
+  top:calc(100% + 4px);
+  border:1px solid var(--line-strong);
+  border-top:none;
+  border-radius:0 0 var(--radius-tag) var(--radius-tag);
+  background:var(--surface);
+  box-shadow:var(--shadow-md);
+  z-index:50;
+  max-height:none;
+  overflow-y:visible;
+  animation:p-size-fade-in 150ms ease-out;
+}
+@keyframes p-size-fade-in{
+  from{opacity:0;transform:translateY(-6px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+@media (max-width: 768px){
+  .product-card .p-size-list{
+    max-height:60vh;
+    overflow-y:auto;
+  }
+}
+.product-card .p-size-option{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 14px;
+  min-height:48px;
+  font-size:16px;
+  font-family:inherit;
+  color:var(--ink);
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  width:100%;
+  box-sizing:border-box;
+  gap:10px;
+}
+.product-card .p-size-option:hover{
+  background:rgba(240,180,41,.12);
+}
+.product-card .p-size-option:focus-visible{
+  outline:2px solid var(--gold-deep);
+  outline-offset:2px;
+}
+.product-card .p-size-option.is-selected{
+  background:var(--cream);
+  color:var(--ink);
+}
+.product-card .p-size-option.is-selected .p-size-tick{
+  color:var(--gold-deep);
+  font-weight:700;
+}
+.product-card .p-size-weight{
+  flex:1;
+}
+.product-card .p-size-price{
+  margin-left:auto;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+  color:var(--gold-deep);
+  font-weight:700;
+}
+.product-card .p-size-tick{
+  margin-left:8px;
+  font-size:14px;
 }
 
 .product-card .p-body{
@@ -706,7 +771,7 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   font-size:14px; line-height:1.5;
   color:var(--text-muted);
 }
-/* price + action pinned to the bottom so every card lines up */
+
 .product-card .p-buy{ margin-top:auto; }
 .product-card .p-price{
   margin:0 0 12px;
@@ -733,8 +798,6 @@ nav.links a:not(.btn):hover::after{ width:100%; }
 @media (max-width: 420px){
   .product-grid{ grid-template-columns:1fr; }
 }
-
-/* ---------- LOCATIONS ---------- */
 
 .locations{ background:var(--surface); border-top:1px solid var(--line); }
 .loc-grid{
@@ -810,8 +873,6 @@ nav.links a:not(.btn):hover::after{ width:100%; }
   .loc-grid{ grid-template-columns:1fr; }
   .map-frame{ order:-1; min-height:280px; }
 }
-
-/* ---------- CONTACT ---------- */
 
 .contact{ background:var(--page); border-top:1px solid var(--line); }
 .contact-grid{
@@ -890,8 +951,6 @@ form.order-form h3{ font-size:22px; }
   .form-submit{ width:100%; }
 }
 
-/* ---------- PRE-FOOTER CTA ---------- */
-
 .order-cta{
   background:
     radial-gradient(circle at 15% 0%, rgba(240,180,41,.18), transparent 55%),
@@ -919,8 +978,6 @@ form.order-form h3{ font-size:22px; }
   .order-cta-actions{ width:100%; }
   .order-cta-actions .btn{ width:100%; }
 }
-
-/* ---------- FOOTER ---------- */
 
 footer{
   background:var(--ink-soft);
@@ -985,7 +1042,6 @@ footer{
   .foot-brand .mark{ width:120px; }
 }
 
-/* whatsapp floating button */
 .wa-float{
   position:fixed; bottom:20px; right:20px; z-index:200;
   width:54px; height:54px; border-radius:50%;
@@ -998,7 +1054,6 @@ footer{
 .wa-float:hover{ transform:translateY(-3px); }
 .wa-float svg{ width:25px; height:25px; }
 
-/* ---------- OFFLINE/ONLINE TOAST ---------- */
 .status-toast{
   position:fixed; top:14px; left:50%; transform:translateX(-50%);
   z-index:400;
@@ -1012,7 +1067,6 @@ footer{
 }
 .status-toast.is-offline{ background:var(--red); color:var(--cream); }
 
-/* ---------- INSTALL BANNER (PWA) ---------- */
 .install-banner{
   position:fixed; left:16px; right:16px; bottom:16px; z-index:300;
   max-width:520px; margin:0 auto;
@@ -1037,7 +1091,6 @@ footer{
   .install-banner-actions{ justify-content:flex-end; }
 }
 
-/* ---------- MOTION PREFERENCES ---------- */
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
   *{
