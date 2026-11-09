@@ -44,7 +44,7 @@ export default function Footer() {
             <a href={generalOrderLink()} target="_blank" rel="noreferrer">
               WhatsApp · {contactInfo.whatsappDisplay}
             </a>
-            <a href={`tel:${contactInfo.phone}`}>{contactInfo.phoneDisplay}</a>
+            <a href={`tel:${contactInfo.secondPhone}`}>{contactInfo.secondPhoneDisplay}</a>
             <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
           </div>
 

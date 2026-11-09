@@ -54,8 +54,8 @@ export default function Locations() {
               </div>
               <div className="panel-hours">
                 <p className="hours-label">OPENING HOURS</p>
-                <p className="hours-value">Mon - Sat: 7:00 - 20:00</p>
-                <p className="hours-value">Sunday: 8:00 - 18:00</p>
+                <p className="hours-value">Mon-Sat: 7:00 am - 8:30 pm</p>
+                <p className="hours-value">Sunday: 8:00 am - 6:00 pm</p>
               </div>
               <div className="panel-actions">
                 <a

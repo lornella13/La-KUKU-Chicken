@@ -223,14 +223,20 @@ if (import.meta.env?.DEV && !isValidWhatsAppNumber(WHATSAPP_NUMBER)) {
   )
 }
 
-const nationalDigits = WHATSAPP_NUMBER.slice(UGANDA_COUNTRY_CODE.length)
-const groupedNumber = nationalDigits.replace(/^(\d{3})(\d+)$/, '$1 $2')
+const whatsappNationalDigits = WHATSAPP_NUMBER.slice(UGANDA_COUNTRY_CODE.length)
+const whatsappGrouped = whatsappNationalDigits.replace(/^(\d{3})(\d+)$/, '$1 $2')
+
+const secondNumber = '256761023983'
+const secondNationalDigits = secondNumber.slice(UGANDA_COUNTRY_CODE.length)
+const secondGrouped = secondNationalDigits.replace(/^(\d{3})(\d+)$/, '$1 $2')
 
 export const contactInfo = {
   whatsapp: WHATSAPP_NUMBER,
-  whatsappDisplay: `+${UGANDA_COUNTRY_CODE} ${groupedNumber}`,
+  whatsappDisplay: `+${UGANDA_COUNTRY_CODE} ${whatsappGrouped}`,
   phone: `+${WHATSAPP_NUMBER}`,
-  phoneDisplay: `+${UGANDA_COUNTRY_CODE} ${groupedNumber}`,
+  phoneDisplay: `+${UGANDA_COUNTRY_CODE} ${whatsappGrouped}`,
+  secondPhone: `+${secondNumber}`,
+  secondPhoneDisplay: `+${UGANDA_COUNTRY_CODE} ${secondGrouped}`,
   email: 'ssuubichristian@gmail.com',
 }
 
@@ -238,8 +244,8 @@ export const locationInfo = {
   branchName: 'Rubaga Branch',
   address: 'Mugwanya Road, Rubaga, Kampala, Uganda',
   hours: [
-    { days: 'Mon – Sat', time: '7:00 – 20:00' },
-    { days: 'Sunday', time: '8:00 – 18:00' },
+    { days: 'Mon-Sat', time: '7:00 am – 8:30 pm' },
+    { days: 'Sunday', time: '8:00 am – 6:00 pm' },
   ],
   delivery: '24/7',
 
